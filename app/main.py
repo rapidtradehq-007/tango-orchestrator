@@ -1,7 +1,6 @@
 import sys
 from app.pipeline.runner import PipelineStep, run_pipeline
 from app.config.settings import CONFIG
-from app.utils.logger import setup_logger
 from app.utils.metrics import start_metrics, stop_metrics
 
 
@@ -9,7 +8,6 @@ def main():
     if not CONFIG["EMAIL"] or not CONFIG["PASSWORD"]:
         raise RuntimeError("EMAIL or PASSWORD env vars not set")
 
-    setup_logger()
     metrics_event, metrics_thread = start_metrics()
 
     try:

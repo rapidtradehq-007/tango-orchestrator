@@ -11,6 +11,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from concurrent.futures import ThreadPoolExecutor, wait as future_wait, ALL_COMPLETED
 from selenium.common.exceptions import WebDriverException
+from app.utils.logger import setup_logger
 from app.utils.interaction_utils import (
     safe_click,
     load_all_cards,
@@ -312,6 +313,7 @@ def process_single_sender(driver, wait, el, broadcaster_url):
 # ==========
 def customer_collector():
     start_time = time.time()
+    setup_logger()
     login()
 
     try:

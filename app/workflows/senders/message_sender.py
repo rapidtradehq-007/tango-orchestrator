@@ -11,6 +11,7 @@ from app.core.login import login, login_profile_path
 from app.core.profiles import clone_profile, cleanup_driver
 from app.storage.local_storage import get_column, get_data
 from app.utils.interaction_utils import safe_click
+from app.utils.logger import setup_logger
 from selenium.common.exceptions import (
     TimeoutException,
     WebDriverException,
@@ -275,6 +276,7 @@ def process_urls_worker(urls_chunk, worker_id):
 # ==========
 def message_sender():
     start_time = time.time()
+    setup_logger()
     login()
 
     input_urls = list(get_column(get_data(CONFIG["CUSTOMER_TABLE_NAME"]), "url"))
