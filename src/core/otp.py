@@ -1,7 +1,7 @@
 import imaplib
 import email
 import re
-from app.config.settings import CONFIG
+from src.config.settings import CONFIG
 
 def get_latest_otp():
     mail = imaplib.IMAP4_SSL(CONFIG["IMAP_SERVER"])

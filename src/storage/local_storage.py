@@ -1,8 +1,10 @@
 import os
-import pandas as pd
 import logging
-from app.config.settings import CONFIG
+import csv
+import pandas as pd
+from src.config.settings import CONFIG
 from datetime import datetime
+from pathlib import Path
 
 def get_column(local_storage_path, column):
     if not os.path.exists(local_storage_path):
@@ -39,19 +41,25 @@ def get_data(prefix):
     return latest_file
 
 
-def save_data(entity_name, data: list[dict]):
+def save_data(entity_name: str, data: list[dict]):
     """
     Persist a list of entity dictionaries.
     """
     if not data:
         raise ValueError("No data to save")
 
-    ts = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    output_file = f"{CONFIG['OUTPUT_PATH']}/{entity_name}_{ts}.csv"
+    output_dir = CONFIG["OUTPUT_PATH"]
+    os.makedirs(output_dir, exist_ok=True)
 
-    columns = sorted({key for item in data for key in item.keys()})
-    pd.DataFrame(data, columns=columns).to_csv(
-        output_file,
-        index=False,
-        encoding="utf-8-sig",
-    )
+    ts = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    output_file = os.path.join(output_dir, f"{entity_name}_{ts}.csv")
+
+    columns = sorted({k for item in data for k in item})
+    with open(output_file, "w", newline="", encoding="utf-8-sig") as f:
+        writer = csv.DictWriter(
+            f,
+            fieldnames=columns,
+            extrasaction="ignore"
+        )
+        writer.writeheader()
+        writer.writerows(data)

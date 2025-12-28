@@ -5,13 +5,13 @@ from selenium.webdriver.common.by import By
 from concurrent.futures import ThreadPoolExecutor, wait as future_wait, ALL_COMPLETED
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
-from app.config.settings import CONFIG
-from app.core.driver import init_driver
-from app.core.login import login, login_profile_path
-from app.core.profiles import clone_profile, cleanup_driver
-from app.storage.local_storage import get_column, get_data
-from app.utils.interaction_utils import safe_click
-from app.utils.logger import setup_logger
+from src.config.settings import CONFIG
+from src.core.driver import init_driver
+from src.core.login import login, login_profile_path
+from src.core.profiles import clone_profile, cleanup_driver
+from src.storage.local_storage import get_column, get_data
+from src.utils.interaction_utils import safe_click
+from src.utils.logger import setup_logger
 from selenium.common.exceptions import (
     TimeoutException,
     WebDriverException,
@@ -47,7 +47,6 @@ def try_navigate_to_chat_from_stream(driver, wait, url, profile_url):
         )
         safe_click(driver, avatar_div)
         time.sleep(CONFIG["ACTION_DELAY"])
-        follow_if_present(driver, profile_url)
 
         return True
     except TimeoutException:
@@ -72,6 +71,8 @@ def is_stream_unavailable(driver, url):
         pass
     return False
 
+def should_skip_profile(url: str) -> bool:
+    return url in CONFIG.get("SKIP_PROFILE_URLS", [])
 
 def open_profile(driver, wait, url):
     logging.info(f"Opening profile URL: {url}")
@@ -85,8 +86,8 @@ def open_profile(driver, wait, url):
         ):
             return False
 
+    follow_if_present(driver, url)
     return True
-
 
 # =============
 # CHAT HANDLING
@@ -229,6 +230,10 @@ def process_urls_worker(urls_chunk, worker_id):
     try:
         for idx, url in enumerate(urls_chunk, start=1):
             logging.info( f"[Worker {worker_id}] [Processing {idx}/{len(urls_chunk)}: {url}]")
+
+            if should_skip_profile(url):
+                logging.info(f"[Worker {worker_id}] Skipping profile as per config: {url}")
+                continue
 
             if not open_profile(driver, wait, url):
                 continue

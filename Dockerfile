@@ -6,6 +6,9 @@ ENV DISPLAY=:99
 
 # Install Chromium, chromedriver, Xvfb, and required libraries
 RUN apt-get update && apt-get install -y \
+    gcc \
+    build-essential \
+    python3-dev \
     chromium \
     chromium-driver \
     xvfb \
@@ -29,10 +32,15 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Install Python dependencies
-COPY requirements.txt /app/
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . /app
+COPY . .
+
+RUN mkdir -p /data/local_storage /data/runtime \
+    && chmod -R 777 /data
+
+VOLUME ["/data"]
 
 # Start Xvfb and then run your Selenium script
-CMD ["sh", "-c", "Xvfb :99 & sleep 5 && python3 -m app.main"]
+CMD ["sh", "-c", "Xvfb :99 & sleep 5 && python -m src.main"]

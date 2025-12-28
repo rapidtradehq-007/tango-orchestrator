@@ -1,7 +1,7 @@
 import time
 import logging
 from selenium.webdriver.common.by import By
-from app.config.settings import CONFIG
+from src.config.settings import CONFIG
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import (
     TimeoutException,

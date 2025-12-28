@@ -6,7 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver import ActionChains
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.common.exceptions import ElementClickInterceptedException
-from app.config.settings import CONFIG
+from src.config.settings import CONFIG
 
 def init_driver(profile_path, headless):
     options = Options()

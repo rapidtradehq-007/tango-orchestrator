@@ -3,10 +3,10 @@ import time
 import logging
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from app.core.driver import init_driver, safe_click
-from app.core.otp import get_latest_otp
-from app.config.settings import CONFIG
-from app.utils.logger import setup_logger
+from src.core.driver import init_driver, safe_click
+from src.core.otp import get_latest_otp
+from src.config.settings import CONFIG
+from src.utils.logger import setup_logger
 
 login_profile_path = CONFIG["LOGIN_PROFILE_PATH"] + f"_{uuid.uuid4().hex}"
 

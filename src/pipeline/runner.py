@@ -1,7 +1,7 @@
 import time, subprocess
 import logging
 from dataclasses import dataclass
-from app.utils.logger import setup_logger
+from src.utils.logger import setup_logger
 
 @dataclass
 class PipelineStep:

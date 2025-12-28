@@ -1,4 +1,5 @@
-selenium~=4.36.0
-pandas~=2.3.3
-psutil~=7.1.3
-webdriver-manager~=4.0.2
+numpy==1.26.4
+pandas==2.1.4
+selenium==4.36.0
+psutil==5.9.8
+webdriver-manager==4.0.2

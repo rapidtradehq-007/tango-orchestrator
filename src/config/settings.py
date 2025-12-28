@@ -1,7 +1,6 @@
 import os
 
 BASE_DIR = os.getcwd()
-
 CONFIG = {
     "PIPELINE_DELAY_BETWEEN_STEPS_SECONDS": 120,
     "EMAIL": os.getenv("EMAIL"),
@@ -35,26 +34,40 @@ CONFIG = {
     "POLL_TIME": 0.2,
     "MESSAGE_THRESHOLD_TO_SKIP_CHAT": 2,
     "PROFILE_LOAD_DELAY": 3,
-    "ROOT_PATH_OF_PROFILES": os.path.join(BASE_DIR, "app/data/runtime/profiles"),
-    "LOGIN_PROFILE_PATH": os.path.join(BASE_DIR, "app/data/runtime/profiles/log_in"),
-    "OUTPUT_PATH": os.path.join(BASE_DIR, "app/data/local_storage"),
-    "IMAGE_PATH": os.path.join(BASE_DIR, "app/resources/RateCard.png"),
+    "ROOT_PATH_OF_PROFILES": os.path.join(BASE_DIR, "data", "runtime", "profiles"),
+    "LOGIN_PROFILE_PATH": os.path.join(BASE_DIR, "data", "runtime", "profiles", "log_in"),
+    "OUTPUT_PATH": os.path.join(BASE_DIR, "data", "local_storage"),
+    "IMAGE_PATH": os.path.join(BASE_DIR, "src", "resources", "RateCard.png"),
     "CUSTOMER_TABLE_NAME": "customers",
+    "SKIP_PROFILE_URLS": [
+        "https://tango.me/divs001"
+    ],
     "MESSAGE_TEXT":
 """
-₹500 - 1000 Coins ⚡
-₹1000 - 2000 Coins ⚡
-₹2000 - 4000 Coins ⚡
-₹5000 - 10000 Coins ⚡
-₹10000 - 20000 Coins ⚡
-₹20000 - 40000 Coins ⚡
-₹50000 - 100000 Coins ⚡
-₹100000 - 200000 Coins ⚡
+₹489 - 1000 Coins ⚡
+₹979 - 2000 Coins ⚡
+₹1469 - 3000 Coins ⚡
+₹2449 - 5000 Coins ⚡
+₹4899 - 10000 Coins ⚡
+₹9799 - 20000 Coins ⚡
+₹12249 - 25000 Coins ⚡
+₹14699 - 30000 Coins ⚡
 
-Hey buddy,
-I am a Tango Official Coin Reseller and I sell Tango coins at ₹0.5 per coin. 
-For prices in other currencies, please DM me directly. 
-Indian customers can pay easily via UPI or scanners, while non-Indians can make payments through Crypto or the Remitly app. 
-If you’re planning to purchase in bulk, feel free to contact me directly for better rates.
+Hey buddy 
+
+I’m a Tango Official Coin Reseller, offering the lowest coin prices in the market.
+My rates are transparent, competitive, and designed for regular senders as well as bulk buyers.
+
+-  Market-Lowest Rates
+-  No Hidden Charges
+-  Instant Transfer
+
+Payment options:
+Indian customers: UPI / QR scanner or Bank Transfer
+International customers: Crypto or Remitly
+
+For bulk purchases or other currencies, DM me directly for better personalized rates.
+
+Compare prices once — you’ll know why I’m the cheapest.
 """
 }

@@ -2,17 +2,17 @@ import time
 import logging
 import threading
 
-from app.config.settings import CONFIG
-from app.core.driver import init_driver
-from app.core.login import login, login_profile_path
-from app.core.profiles import clone_profile, cleanup_driver
-from app.storage.local_storage import save_data
+from src.config.settings import CONFIG
+from src.core.driver import init_driver
+from src.core.login import login, login_profile_path
+from src.core.profiles import clone_profile, cleanup_driver
+from src.storage.local_storage import save_data
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from concurrent.futures import ThreadPoolExecutor, wait as future_wait, ALL_COMPLETED
 from selenium.common.exceptions import WebDriverException
-from app.utils.logger import setup_logger
-from app.utils.interaction_utils import (
+from src.utils.logger import setup_logger
+from src.utils.interaction_utils import (
     safe_click,
     load_all_cards,
     handle_notification_modal,
@@ -303,7 +303,7 @@ def process_single_sender(driver, wait, el, broadcaster_url):
                     sender_table.append(sender)
                     sender_keys.add(sender["url"])
                     logging.info(f"Saved sender #{len(sender_table)}: {sender.get('url')} "
-                                 f" -> Gifted {sender.get('coins_gifted')} coins")
+                                 f" -> Gifted {sender.get('coins_gifted')} coins to broadcaster ({broadcaster_url})")
 
         except Exception as e:
             logging.error(f"Failed data fetch for sender {sender.get('name')} -> {e}")
